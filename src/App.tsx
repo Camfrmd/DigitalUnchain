@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './components/pages/Home';
-
-import QuizPage from './components/Quizz/QuizPage';
-import Blog from './components/pages/Blog';
-
-import MondeLinux from './components/mondeLinux/MondeLinux';
-import MondeReconditionne from './components/mondeReconditionne/MondeReconditionne';
-import MondeLogicielLibre from './components/mondeLogicielLibre/MondeLogicielLibre';
+import Header from './components/Header.js';
+import Home from './components/pages/Home.js';
+import QuizPage from './components/Quizz/QuizPage.js';
+import Blog from './components/pages/Blog.js';
+import MondeLinux from './components/mondeLinux/MondeLinux.js';
+import MondeReconditionne from './components/mondeReconditionne/MondeReconditionne.js';
+import MondeLogicielLibre from './components/mondeLogicielLibre/MondeLogicielLibre.js';
 // Footer: declared outside of App to avoid creating components during render
 const Footer: React.FC = () => (
   <footer className="bg-gray-800 text-white p-4 text-center text-sm mt-8">

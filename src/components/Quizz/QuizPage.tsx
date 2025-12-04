@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
 
-const QuizPage = () => (
+const QuizPage: React.FC = () => (
   <div className="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg text-center">
     <CheckCircle className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
     <h1 className="text-3xl font-extrabold mb-2">Quizz — Évaluez votre dépendance</h1>

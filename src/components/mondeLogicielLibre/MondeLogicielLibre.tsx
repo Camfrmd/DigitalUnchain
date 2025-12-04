@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Bookmark } from 'lucide-react';
 
-const MondeLogicielLibre = () => (
+const MondeLogicielLibre: React.FC = () => (
   <div className="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
     <div className="flex items-center space-x-4 mb-6">
       <Bookmark className="w-10 h-10 text-yellow-600" />

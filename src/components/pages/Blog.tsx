@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
 
-const Blog = () => (
+const Blog: React.FC = () => (
   <div className="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
     <div className="flex items-center space-x-4 mb-6">
       <BookOpen className="w-10 h-10 text-indigo-600" />

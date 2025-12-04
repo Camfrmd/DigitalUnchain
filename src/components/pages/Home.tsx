@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import WorldCard from '../WorldCard';
+import React from 'react';
+import WorldCard from '../WorldCard.js';
 import { AlertTriangle, Clock, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Définition des mondes
-const WORLDS = [
+interface World {
+  title: string;
+  description: string;
+  path: string;
+  isLocked: boolean;
+  progress: number;
+}
+
+const WORLDS: World[] = [
   { 
     title: 'Linux', 
     description: "Apprenez les alternatives aux systèmes d'exploitation propriétaires. Libérez-vous de JoogleOS.", 
     path: '/worlds/linux', 
-    isLocked: false, // Démarrer déverrouillé pour l'exemple
-    progress: 45 // 45% de progression dans le monde (vs 100% de dépendance initiale)
+    isLocked: false,
+    progress: 45
   },
   { 
     title: 'Reconditionnement', 
     description: "Découvrez comment réparer et optimiser votre matériel. Contrez l'obsolescence programmée de Faceblock.", 
     path: '/worlds/reconditionnement', 
-    isLocked: true, // Verrouillé au début
+    isLocked: true,
     progress: 10 
   },
   { 
@@ -26,25 +33,16 @@ const WORLDS = [
     isLocked: true, 
     progress: 75 
   },
-  { 
-    title: 'Numérique Responsable', 
-    description: "Testez votre pollution numérique et réduisez votre empreinte écologique (Monde INCLUSIF/DURABLE).", 
-    path: '/worlds/responsable', 
-    isLocked: true, 
-    progress: 20 
-  },
 ];
 
-/**
- * Affiche le score de dépendance et l'évolution.
- * @param {object} props - Props du composant.
- * @param {number} props.dependencyScore - Score de dépendance global.
- * @param {Function} props.setDependencyScore - Fonction pour mettre à jour le score (pour le test).
- */
-const DependencyScoreWidget = ({ dependencyScore, setDependencyScore }) => {
-  // Simuler une évolution
+interface DependencyScoreWidgetProps {
+  dependencyScore: number;
+  setDependencyScore: (score: number) => void;
+}
+
+const DependencyScoreWidget: React.FC<DependencyScoreWidgetProps> = ({ dependencyScore, setDependencyScore }) => {
   const handleRecalculate = () => {
-    const newScore = Math.floor(Math.random() * (90 - 20 + 1)) + 20; // Nouveau score entre 20 et 90
+    const newScore = Math.floor(Math.random() * (90 - 20 + 1)) + 20;
     setDependencyScore(newScore);
     alert(`Votre nouveau score de dépendance est de ${newScore}%.`);
   };
@@ -82,16 +80,12 @@ const DependencyScoreWidget = ({ dependencyScore, setDependencyScore }) => {
   );
 };
 
-/**
- * Composant de la Page d'Accueil
- * @param {object} props - Props du composant.
- * @param {Function} props.setDependencyScore - Fonction pour mettre à jour le score.
- * @param {number} props.dependencyScore - Score de dépendance global.
- */
-const Home = ({ setDependencyScore, dependencyScore }) => {
-  // Ici, la logique pour déterminer l'ordre suggéré des mondes
-  // Pour l'instant, nous affichons les 3 premiers.
+interface HomeProps {
+  setDependencyScore: (score: number) => void;
+  dependencyScore: number;
+}
 
+const Home: React.FC<HomeProps> = ({ setDependencyScore, dependencyScore }) => {
   return (
     <div className="animate-fadeIn">
       {/* Section 1: Score de Dépendance et Appel à l'Action */}

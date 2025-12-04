@@ -1,9 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Lock, Unlock, Zap, Cpu, BookOpen } from 'lucide-react';
+import { Lock, Zap, Cpu, BookOpen } from 'lucide-react';
 
-// Une map simple pour les logos des GAFAM mal orthographiés
-const GAFAM_LOGOS = {
+interface WorldCardProps {
+  title: string;
+  description: string;
+  path: string;
+  isLocked?: boolean;
+  progress?: number;
+}
+
+const GAFAM_LOGOS: Record<string, { name: string; icon: React.ComponentType<{ className?: string }>; color: string }> = {
   linux: { name: 'JoogleOS', icon: Zap, color: 'text-green-500' },
   reconditionnement: { name: 'Faceblock', icon: Cpu, color: 'text-indigo-500' },
   'logiciels-libres': { name: 'Amason', icon: BookOpen, color: 'text-yellow-500' },
@@ -11,14 +18,8 @@ const GAFAM_LOGOS = {
 
 /**
  * Affiche une carte représentant un monde de jeu.
- * @param {object} props - Props du composant.
- * @param {string} props.title - Titre du monde (ex: Linux).
- * @param {string} props.description - Description du monde.
- * @param {string} props.path - Chemin de l'URL pour accéder au monde.
- * @param {boolean} props.isLocked - Indique si le monde est verrouillé (mini-jeu d'accès).
- * @param {number} props.progress - Pourcentage de dépendance/progression du monde (0-100).
  */
-const WorldCard = ({ title, description, path, isLocked = false, progress = 0 }) => {
+const WorldCard: React.FC<WorldCardProps> = ({ title, description, path, isLocked = false, progress = 0 }) => {
   const worldKey = title.toLowerCase().replace(/\s/g, '-');
   const logo = GAFAM_LOGOS[worldKey] || { name: title, icon: Zap, color: 'text-gray-500' };
   const IconComponent = logo.icon;

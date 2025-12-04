@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Gauge, BookOpen } from 'lucide-react'; // Icônes pour le style
+import { Gauge, BookOpen } from 'lucide-react';
+
+interface DependencyScoreProps {
+  score: number;
+}
 
 /**
  * Affiche le score de dépendance.
- * @param {number} score - Le score de dépendance actuel (0-100).
  */
-const DependencyScore = ({ score }) => {
-  // Détermine la couleur en fonction du score
+const DependencyScore: React.FC<DependencyScoreProps> = ({ score }) => {
   const colorClass = score > 75 ? 'bg-red-500' : score > 40 ? 'bg-yellow-500' : 'bg-green-500';
 
   return (
@@ -23,13 +25,14 @@ const DependencyScore = ({ score }) => {
   );
 };
 
+interface HeaderProps {
+  dependencyScore: number;
+}
 
 /**
  * Composant du bandeau de navigation principal.
- * @param {object} props - Props du composant.
- * @param {number} props.dependencyScore - Score de dépendance à afficher.
  */
-const Header = ({ dependencyScore }) => {
+const Header: React.FC<HeaderProps> = ({ dependencyScore }) => {
   return (
     <header className="bg-gray-900 shadow-xl sticky top-0 z-10">
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
@@ -54,8 +57,14 @@ const Header = ({ dependencyScore }) => {
   );
 };
 
+interface NavLinkProps {
+  to: string;
+  icon: React.ComponentType<{ className?: string }>;
+  children: React.ReactNode;
+}
+
 // Composant utilitaire pour les liens de navigation
-const NavLink = ({ to, icon: Icon, children }) => (
+const NavLink: React.FC<NavLinkProps> = ({ to, icon: Icon, children }) => (
   <Link 
     to={to} 
     className="flex items-center space-x-1 text-sm font-medium text-gray-300 hover:text-blue-400 transition duration-200"
