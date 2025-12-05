@@ -1,42 +1,171 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app-root {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1.5rem 1.8rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.app-subtitle {
+  margin: 0.4rem 0 1rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+/* Onglets de mondes */
+
+.world-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.world-tab {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 0.35rem 0.9rem;
+  background: #f9fafb;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.world-tab-active {
+  border-color: #4f46e5;
+  background: #eef2ff;
+  color: #111827;
+}
+
+/* Contenu d'un monde */
+
+.world-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.world-info h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.world-info p {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* Cartes de jeux */
+
+.world-games {
+  margin-top: 0.5rem;
+}
+
+.world-games h3 {
+  margin: 0 0 0.6rem;
+}
+
+.world-games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.75rem;
+}
+
+.game-card {
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.7rem 0.9rem;
+  background: #ffffff;
+}
+
+.game-card-locked {
+  opacity: 0.65;
+}
+
+.game-card-active {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.3);
+}
+
+.game-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.game-card-title h4 {
+  margin: 0.1rem 0 0.15rem;
+  font-size: 0.98rem;
+}
+
+.game-card-badge {
+  display: inline-flex;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.game-card-complete {
+  font-size: 0.8rem;
+  color: #16a34a;
+}
+
+.game-card-description {
+  margin: 0.35rem 0;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.game-card-requires {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.game-card-button {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: #f9fafb;
+}
+
+.game-card-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Zone du jeu actif */
+
+.world-active-game {
+  margin-top: 1.3rem;
+}
+
+/* Articles */
+
+.world-articles {
+  margin-top: 0.5rem;
+}
+
+.world-articles h3 {
+  margin: 0 0 0.5rem;
+}
+
+.world-articles p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .app-root {
+    margin: 1rem;
+    padding: 1rem;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
