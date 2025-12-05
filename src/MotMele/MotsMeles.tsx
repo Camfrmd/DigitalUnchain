@@ -21,21 +21,94 @@ const WORDS: Word[] = [
   { id: "backup", label: "BACKUP (sauvegarde)", pattern: "BACKUP" },
 ];
 
-// Grille 12x12 : les mots sont cachés horizontalement
-const GRID: string[][] = [
-  ["L", "I", "N", "U", "X", "A", "B", "C", "D", "E", "F", "G"], // LINUX
-  ["H", "L", "I", "B", "R", "E", "J", "K", "L", "M", "N", "O"], // LIBRE
-  ["P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "A"],
-  ["D", "O", "N", "N", "E", "E", "S", "B", "C", "D", "E", "F"], // DONNEES
-  ["C", "L", "O", "U", "D", "G", "H", "I", "J", "K", "L", "M"], // CLOUD
-  ["C", "O", "D", "E", "N", "O", "P", "Q", "R", "S", "T", "U"], // CODE
-  ["E", "T", "H", "I", "Q", "U", "E", "A", "B", "C", "D", "E"], // ETHIQUE
-  ["V", "I", "E", "P", "R", "I", "V", "E", "E", "F", "G", "H"], // VIEPRIVEE
-  ["S", "E", "R", "V", "E", "U", "R", "A", "B", "C", "D", "E"], // SERVEUR
-  ["F", "I", "R", "E", "F", "O", "X", "G", "H", "I", "J", "K"], // FIREFOX
-  ["B", "A", "C", "K", "U", "P", "C", "D", "E", "F", "G", "H"], // BACKUP
-  ["I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"],
+const GRID_SIZE = 12;
+
+// Directions: horizontal, vertical, diagonal (8 directions)
+const DIRECTIONS = [
+  { dr: 0, dc: 1 },   // horizontal right
+  { dr: 1, dc: 0 },   // vertical down
+  { dr: 1, dc: 1 },   // diagonal down-right
+  { dr: 1, dc: -1 },  // diagonal down-left
+  { dr: 0, dc: -1 },  // horizontal left
+  { dr: -1, dc: 0 },  // vertical up
+  { dr: -1, dc: -1 }, // diagonal up-left
+  { dr: -1, dc: 1 },  // diagonal up-right
 ];
+
+// Generate a random letter
+const randomLetter = () => {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return letters[Math.floor(Math.random() * letters.length)];
+};
+
+// Check if word can be placed at position with direction
+const canPlaceWord = (grid: string[][], word: string, row: number, col: number, dir: { dr: number; dc: number }): boolean => {
+  for (let i = 0; i < word.length; i++) {
+    const r = row + i * dir.dr;
+    const c = col + i * dir.dc;
+    
+    // Out of bounds
+    if (r < 0 || r >= GRID_SIZE || c < 0 || c >= GRID_SIZE) {
+      return false;
+    }
+    
+    // Cell is occupied by a different letter
+    if (grid[r][c] !== "" && grid[r][c] !== word[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+// Place word in grid
+const placeWord = (grid: string[][], word: string, row: number, col: number, dir: { dr: number; dc: number }): void => {
+  for (let i = 0; i < word.length; i++) {
+    const r = row + i * dir.dr;
+    const c = col + i * dir.dc;
+    grid[r][c] = word[i];
+  }
+};
+
+// Generate word search grid
+const generateGrid = (): string[][] => {
+  // Initialize empty grid
+  const grid: string[][] = Array.from({ length: GRID_SIZE }, () =>
+    Array.from({ length: GRID_SIZE }, () => "")
+  );
+
+  // Try to place each word
+  for (const word of WORDS) {
+    let placed = false;
+    let attempts = 0;
+    const maxAttempts = 100;
+
+    while (!placed && attempts < maxAttempts) {
+      const row = Math.floor(Math.random() * GRID_SIZE);
+      const col = Math.floor(Math.random() * GRID_SIZE);
+      const dir = DIRECTIONS[Math.floor(Math.random() * DIRECTIONS.length)];
+
+      if (canPlaceWord(grid, word.pattern, row, col, dir)) {
+        placeWord(grid, word.pattern, row, col, dir);
+        placed = true;
+      }
+      attempts++;
+    }
+  }
+
+  // Fill remaining empty cells with random letters
+  for (let r = 0; r < GRID_SIZE; r++) {
+    for (let c = 0; c < GRID_SIZE; c++) {
+      if (grid[r][c] === "") {
+        grid[r][c] = randomLetter();
+      }
+    }
+  }
+
+  return grid;
+};
+
+// Generate the grid once
+const GRID: string[][] = generateGrid();
 
 type CellPos = { row: number; col: number };
 
@@ -78,18 +151,20 @@ export default function MotsMelesNumerique() {
       return;
     }
 
+    // Get letters from selection in order
     const letters = selection.map((p) => GRID[p.row][p.col]).join("");
     const reversed = letters.split("").reverse().join("");
 
+    // Check if the selected letters match any word (forward or backward)
     const match = WORDS.find(
       (w) => w.pattern === letters || w.pattern === reversed
     );
 
     if (match) {
-      // 1) On marque le mot comme trouvé dans la liste
+      // Mark word as found
       setFoundWords((prev) => ({ ...prev, [match.id]: true }));
 
-      // 2) On surligne définitivement les cases de ce mot dans la grille
+      // Highlight all cells in the selection
       setFoundCells((prev) => {
         const updated = { ...prev };
         for (const p of selection) {
