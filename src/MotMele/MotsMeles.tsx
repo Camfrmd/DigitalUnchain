@@ -10,16 +10,16 @@ type Word = {
 
 // Liste des mots liés au numérique
 const WORDS: Word[] = [
-  { id: "linux", label: "LINUX", pattern: "LINUX", def: "Système d'exploitation libre" },
-  { id: "libre", label: "LIBRE (logiciel libre)", pattern: "LIBRE", def: "Opposé de propriétaire" },
-  { id: "donnees", label: "DONNÉES", pattern: "DONNEES", def: "Informations numériques" },
-  { id: "cloud", label: "CLOUD", pattern: "CLOUD", def: "Stockage en ligne" },
-  { id: "code", label: "CODE", pattern: "CODE", def: "Instructions pour ordinateur" },
-  { id: "ethique", label: "ÉTHIQUE", pattern: "ETHIQUE", def: "Principes moraux" },
-  { id: "vieprivee", label: "VIE PRIVÉE", pattern: "VIEPRIVEE", def: "Protection des informations personnelles" },
-  { id: "serveur", label: "SERVEUR", pattern: "SERVEUR", def: "Ordinateur qui héberge des services" },
-  { id: "firefox", label: "FIREFOX", pattern: "FIREFOX", def: "Navigateur web libre" },
-  { id: "backup", label: "BACKUP (sauvegarde)", pattern: "BACKUP", def: "Copie de sécurité" },
+  { id: "internet", label: "INTERNET", pattern: "INTERNET", def: "Réseau mondial d'ordinateurs" },
+  { id: "algorithme", label: "ALGORITHME", pattern: "ALGORITHME", def: "Suite d'instructions pour résoudre un problème" },
+  { id: "pixel", label: "PIXEL", pattern: "PIXEL", def: "Plus petit élément d'une image numérique" },
+  { id: "cryptage", label: "CRYPTAGE", pattern: "CRYPTAGE", def: "Chiffrement de données pour les protéger" },
+  { id: "reseau", label: "RÉSEAU", pattern: "RESEAU", def: "Ensemble d'ordinateurs connectés" },
+  { id: "logiciel", label: "LOGICIEL", pattern: "LOGICIEL", def: "Programme informatique" },
+  { id: "numerique", label: "NUMÉRIQUE", pattern: "NUMERIQUE", def: "Relatif aux technologies digitales" },
+  { id: "securite", label: "SÉCURITÉ", pattern: "SECURITE", def: "Protection des systèmes informatiques" },
+  { id: "wifi", label: "WIFI", pattern: "WIFI", def: "Connexion internet sans fil" },
+  { id: "opensource", label: "OPEN SOURCE", pattern: "OPENSOURCE", def: "Code source accessible à tous" },
 ];
 
 const GRID_SIZE = 12;
