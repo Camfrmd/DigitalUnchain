@@ -27,6 +27,7 @@ import "./App.css";
 import Quiz from "./component/Quiz";
 import MotsMelesNumerique from "./MotMele/MotsMeles";
 import Pacman from "./pacman/pacman";
+import SnakeGame from "./components/SnakeGame";
 
 type WorldKey = "linux" | "reconditionnement" | "libres" | "articles";
 type GameId = "quiz" | "motsMeles" | "pacman";
@@ -216,12 +217,23 @@ function App() {
               })}
             </div>
 
-            {/* Zone d’affichage du jeu sélectionné */}
+            {/* Zone d'affichage du jeu sélectionné */}
             {activeGameId && (
               <section className="world-active-game">
                 {renderGame(activeGameId)}
               </section>
             )}
+          </section>
+        )}
+
+        {/* Snake Game - Always Visible */}
+        {currentWorld !== "articles" && (
+          <section className="snake-section">
+            <div className="snake-section-header">
+              <h3>🐍 Snake du Libre</h3>
+              <p>Guide le serpent avec les flèches ou ZQSD et mange le plus de pommes possible.</p>
+            </div>
+            <SnakeGame />
           </section>
         )}
       </main>
