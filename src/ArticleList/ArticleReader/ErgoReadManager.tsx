@@ -2,7 +2,7 @@ import React from 'react';
 import './ErgoReadManager.css';
 
 export type FontFamily = 'sans-serif' | 'serif' | 'monospace';
-export type Theme = 'light' | 'dark' | 'sepia' | 'colorblind';
+export type Theme = 'light' | 'dark' | 'sepia';
 
 export interface ReadingSettings {
   readingMode: boolean;
@@ -29,13 +29,6 @@ const ErgoReadManager: React.FC<ErgoReadManagerProps> = ({ settings, onSettingsC
     onSettingsChange({
       ...settings,
       fontFamily,
-    });
-  };
-
-  const handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onSettingsChange({
-      ...settings,
-      contentWidth: parseInt(event.target.value),
     });
   };
 
@@ -111,21 +104,6 @@ const ErgoReadManager: React.FC<ErgoReadManagerProps> = ({ settings, onSettingsC
         </div>
       </div>
 
-      {/* Content Width Slider */}
-      <div className="ergo-control-group">
-        <label className="ergo-label">
-          Content Width: {settings.contentWidth}%
-        </label>
-        <input
-          type="range"
-          min="50"
-          max="100"
-          value={settings.contentWidth}
-          onChange={handleWidthChange}
-          className="ergo-slider"
-        />
-      </div>
-
       {/* Font Size Controls */}
       <div className="ergo-control-group">
         <label className="ergo-label">
@@ -175,13 +153,6 @@ const ErgoReadManager: React.FC<ErgoReadManagerProps> = ({ settings, onSettingsC
             title="Sepia theme"
           >
             Sepia
-          </button>
-          <button
-            className={`ergo-theme-btn theme-colorblind ${settings.theme === 'colorblind' ? 'active' : ''}`}
-            onClick={() => handleThemeChange('colorblind')}
-            title="Colorblind-friendly theme"
-          >
-            Colorblind
           </button>
         </div>
       </div>

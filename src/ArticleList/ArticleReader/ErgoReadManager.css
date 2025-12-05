@@ -136,7 +136,7 @@
 /* Theme Grid */
 .ergo-theme-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
 }
 
@@ -184,16 +184,6 @@
 
 .theme-sepia:hover {
   border-color: #b4a488;
-}
-
-.theme-colorblind {
-  background: linear-gradient(135deg, #0077be 0%, #f59e00 100%);
-  color: #ffffff;
-  border-color: #005a8e;
-}
-
-.theme-colorblind:hover {
-  border-color: #003d5e;
 }
 
 /* Responsive Design */
