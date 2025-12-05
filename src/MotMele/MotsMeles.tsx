@@ -1,24 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./motsmeles.css";
 
 type Word = {
   id: string;
   label: string;   // texte affiché dans la liste
   pattern: string; // forme dans la grille (sans accents, en majuscules, sans espaces)
+  def: string;    // indice pour aider
 };
 
 // Liste des mots liés au numérique
 const WORDS: Word[] = [
-  { id: "linux", label: "LINUX", pattern: "LINUX" },
-  { id: "libre", label: "LIBRE (logiciel libre)", pattern: "LIBRE" },
-  { id: "donnees", label: "DONNÉES", pattern: "DONNEES" },
-  { id: "cloud", label: "CLOUD", pattern: "CLOUD" },
-  { id: "code", label: "CODE", pattern: "CODE" },
-  { id: "ethique", label: "ÉTHIQUE", pattern: "ETHIQUE" },
-  { id: "vieprivee", label: "VIE PRIVÉE", pattern: "VIEPRIVEE" },
-  { id: "serveur", label: "SERVEUR", pattern: "SERVEUR" },
-  { id: "firefox", label: "FIREFOX", pattern: "FIREFOX" },
-  { id: "backup", label: "BACKUP (sauvegarde)", pattern: "BACKUP" },
+  { id: "linux", label: "LINUX", pattern: "LINUX", def: "Système d'exploitation libre" },
+  { id: "libre", label: "LIBRE (logiciel libre)", pattern: "LIBRE", def: "Opposé de propriétaire" },
+  { id: "donnees", label: "DONNÉES", pattern: "DONNEES", def: "Informations numériques" },
+  { id: "cloud", label: "CLOUD", pattern: "CLOUD", def: "Stockage en ligne" },
+  { id: "code", label: "CODE", pattern: "CODE", def: "Instructions pour ordinateur" },
+  { id: "ethique", label: "ÉTHIQUE", pattern: "ETHIQUE", def: "Principes moraux" },
+  { id: "vieprivee", label: "VIE PRIVÉE", pattern: "VIEPRIVEE", def: "Protection des informations personnelles" },
+  { id: "serveur", label: "SERVEUR", pattern: "SERVEUR", def: "Ordinateur qui héberge des services" },
+  { id: "firefox", label: "FIREFOX", pattern: "FIREFOX", def: "Navigateur web libre" },
+  { id: "backup", label: "BACKUP (sauvegarde)", pattern: "BACKUP", def: "Copie de sécurité" },
 ];
 
 const GRID_SIZE = 12;
@@ -126,9 +127,51 @@ export default function MotsMelesNumerique() {
   // sélection en cours (drag)
   const [isSelecting, setIsSelecting] = useState(false);
   const [selection, setSelection] = useState<CellPos[]>([]);
+  
+  // Timer
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [isGameComplete, setIsGameComplete] = useState(false);
+  
+  // Hints
+  const [showHints, setShowHints] = useState(false);
+  
+  // Last found word for animation
+  const [lastFoundWord, setLastFoundWord] = useState<string | null>(null);
 
   const total = WORDS.length;
   const foundCount = Object.values(foundWords).filter(Boolean).length;
+  
+  // Timer effect
+  useEffect(() => {
+    if (isGameComplete) return;
+    
+    const timer = setInterval(() => {
+      setTimeElapsed((prev) => prev + 1);
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [isGameComplete]);
+  
+  // Check if game is complete
+  useEffect(() => {
+    if (foundCount === total && foundCount > 0) {
+      setIsGameComplete(true);
+    }
+  }, [foundCount, total]);
+  
+  // Clear last found word animation after delay
+  useEffect(() => {
+    if (lastFoundWord) {
+      const timer = setTimeout(() => setLastFoundWord(null), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [lastFoundWord]);
+  
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const startSelection = (row: number, col: number) => {
     setIsSelecting(true);
@@ -172,6 +215,9 @@ export default function MotsMelesNumerique() {
         }
         return updated;
       });
+      
+      // Show success animation
+      setLastFoundWord(match.label);
     }
 
     setIsSelecting(false);
@@ -193,9 +239,25 @@ export default function MotsMelesNumerique() {
           surligner un mot dans la grille. S&apos;il fait partie de la liste,
           il restera surligné et sera coché automatiquement.
         </p>
-        <p className="mm-progress">
-          Mots trouvés : <strong>{foundCount}</strong> / {total}
-        </p>
+        <div className="mm-stats">
+          <p className="mm-progress">
+            Mots trouvés : <strong>{foundCount}</strong> / {total}
+          </p>
+          <p className="mm-timer">
+            ⏱️ Temps : <strong>{formatTime(timeElapsed)}</strong>
+          </p>
+          <button 
+            className="mm-hint-button"
+            onClick={() => setShowHints(!showHints)}
+          >
+            {showHints ? '🔍 Masquer' : '📖 Définitions'}
+          </button>
+        </div>
+        {lastFoundWord && (
+          <div className="mm-found-animation">
+            ✨ {lastFoundWord} trouvé !
+          </div>
+        )}
       </div>
 
       <div className="mm-layout">
@@ -251,7 +313,12 @@ export default function MotsMelesNumerique() {
                     (foundWords[word.id] ? " mm-word-tag-found" : "")
                   }
                 >
-                  <span>{word.label}</span>
+                  <div>
+                    <span className="mm-word-label">{word.label}</span>
+                    {showHints && !foundWords[word.id] && (
+                      <span className="mm-word-hint">{word.def}</span>
+                    )}
+                  </div>
                   {foundWords[word.id] && (
                     <span className="mm-word-check">✓</span>
                   )}
@@ -260,12 +327,15 @@ export default function MotsMelesNumerique() {
             ))}
           </ul>
 
-          {foundCount === total && (
+          {isGameComplete && (
             <div className="mm-complete">
-              🎉 Bravo ! Tu as retrouvé tous les mots liés au numérique.  
-              Tu peux maintenant aller plus loin avec les thématiques :
-              <br />
-              <strong>Numérique, Inclusif, Responsable, Durable.</strong>
+              <div className="mm-complete-header">🎉 Félicitations !</div>
+              <p>Tu as trouvé tous les mots en <strong>{formatTime(timeElapsed)}</strong> !</p>
+              <p className="mm-complete-message">
+                Tu peux maintenant explorer les thématiques :
+                <br />
+                <strong>Numérique, Inclusif, Responsable, Durable.</strong>
+              </p>
             </div>
           )}
         </div>
