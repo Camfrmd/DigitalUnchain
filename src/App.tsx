@@ -132,8 +132,19 @@ function renderGame(gameId: GameId) {
 function App() {
   const [currentWorld, setCurrentWorld] = useState<WorldKey>("linux");
   const [activeGameId, setActiveGameId] = useState<GameId | null>(null);
+  const [secretInput, setSecretInput] = useState("");
+  const [snakeVisible, setSnakeVisible] = useState(false);
 
   const world = WORLDS[currentWorld];
+
+  const handleSecretInput = (value: string) => {
+    setSecretInput(value);
+    if (value.toUpperCase() === "DURABLE") {
+      setSnakeVisible(true);
+    } else {
+      setSnakeVisible(false);
+    }
+  };
 
   return (
     <div className="app-root">
@@ -226,8 +237,30 @@ function App() {
           </section>
         )}
 
-        {/* Snake Game - Always Visible */}
-        {currentWorld !== "articles" && (
+        {/* Secret Word Input */}
+        {currentWorld !== "articles" && !snakeVisible && (
+          <section className="secret-input-section">
+            <div className="secret-input-header">
+              <h3>🔐 Jeu Secret</h3>
+              <p>Entre le mot secret pour déverrouiller un jeu caché...</p>
+              <p>Indice: Je ne cède ni à l'usure ni à l'instantané, je m'inscris au fil des ans ;</p>
+              <p>On me lie à une pratique qui préserve ressources et héritage humain,</p>
+              <p>Mon composé trahit mon sens : l'un parle du temps, l'autre qualifie.
+              Qui suis-je ?</p>
+            </div>
+            <input
+              type="text"
+              className="secret-input"
+              placeholder="Mot secret..."
+              value={secretInput}
+              onChange={(e) => handleSecretInput(e.target.value)}
+              maxLength={10}
+            />
+          </section>
+        )}
+
+        {/* Snake Game - Visible Only With Secret Word */}
+        {currentWorld !== "articles" && snakeVisible && (
           <section className="snake-section">
             <div className="snake-section-header">
               <h3>🐍 Snake du Libre</h3>

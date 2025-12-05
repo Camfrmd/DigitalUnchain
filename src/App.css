@@ -163,6 +163,56 @@
   font-size: 0.9rem;
 }
 
+/* Secret Input Section Styles */
+
+.secret-input-section {
+  margin-top: 2rem;
+  border-radius: 1rem;
+  border: 2px dashed #d1d5db;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  text-align: center;
+}
+
+.secret-input-header {
+  margin-bottom: 1.5rem;
+}
+
+.secret-input-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #111827;
+}
+
+.secret-input-header p {
+  margin: 0.5rem 0 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.secret-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 2px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.secret-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.secret-input::placeholder {
+  color: #9ca3af;
+}
+
 /* Snake Section Styles */
 
 .snake-section {
