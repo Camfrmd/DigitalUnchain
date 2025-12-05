@@ -7,6 +7,10 @@ import type { ProfileKey } from "./quizz";
 
 import "./quizz.css";
 
+type QuizProps = {
+  onComplete?: () => void;
+};
+
 const PROFILE_TEXTS: Record<
   ProfileKey,
   { title: string; description: string; suggestions: string[] }
@@ -53,7 +57,21 @@ const PROFILE_TEXTS: Record<
   },
 };
 
-export default function Quiz() {
+
+
+
+export default function Quiz({ onComplete }: QuizProps) {
+
+  const handleSubmit = () => {
+    if (!allAnswered) return;
+    const typedAnswers = answers as AnswerOption[];
+    const res = computeNIRDProfile(typedAnswers);
+    setResult(res);
+    setSubmitted(true);
+  };
+
+
+
   const [answers, setAnswers] = useState<(AnswerOption | null)[]>(
     Array(QUESTIONS.length).fill(null)
   );
@@ -71,13 +89,13 @@ export default function Quiz() {
     setResult(null);
   };
 
-  const handleSubmit = () => {
-    if (!allAnswered) return;
-    const typed = answers as AnswerOption[];
-    const r = computeNIRDProfile(typed);
-    setResult(r);
-    setSubmitted(true);
-  };
+  // const handleSubmit = () => {
+  //   if (!allAnswered) return;
+  //   const typed = answers as AnswerOption[];
+  //   const r = computeNIRDProfile(typed);
+  //   setResult(r);
+  //   setSubmitted(true);
+  // };
 
   const handleReset = () => {
     setAnswers(Array(QUESTIONS.length).fill(null));
@@ -130,28 +148,34 @@ export default function Quiz() {
         </div>
       </form>
 
-      {submitted && result && (
-        <div className="result-card">
-          {/* <h2>Ton profil : {result.profilLabel}</h2>
+{submitted && result && (
+  <div className="result-card">
+    <div className="result-details">
+      <h3>{PROFILE_TEXTS[result.profilKey].title}</h3>
+      <p>{PROFILE_TEXTS[result.profilKey].description}</p>
+      <ul>
+        {PROFILE_TEXTS[result.profilKey].suggestions.map((s, idx) => (
+          <li key={idx}>{s}</li>
+        ))}
+      </ul>
+    </div>
 
-          <p className="result-subtitle">
-            Numérique : {result.scores.numerique} | Inclusif :
-            {result.scores.inclusif} | Responsable :
-            {result.scores.responsable} | Durable :
-            {result.scores.durable}
-          </p> */}
+    {/* Nouveau bloc : bouton pour passer à la suite */}
+    {onComplete && (
+      <div className="quiz-next">
+        <button type="button" onClick={onComplete}>
+          Aller à la page suivante
+        </button>
+      </div>
+    )}
+  </div>
+)}
 
-          <div className="result-details">
-            <h3>{PROFILE_TEXTS[result.profilKey].title}</h3>
-            <p>{PROFILE_TEXTS[result.profilKey].description}</p>
-            <ul>
-              {PROFILE_TEXTS[result.profilKey].suggestions.map((s, idx) => (
-                <li key={idx}>{s}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+
+
+
+
+
     </div>
   );
 }

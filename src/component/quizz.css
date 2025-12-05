@@ -323,3 +323,20 @@ body {
     justify-content: center;
   }
 }
+
+
+
+.quiz-next {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.quiz-next button {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #4f46e5;
+  background: #4f46e5;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
