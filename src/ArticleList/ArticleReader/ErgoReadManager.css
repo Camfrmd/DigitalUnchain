@@ -1,0 +1,212 @@
+.ergo-read-manager {
+  background: var(--ergo-panel-bg, #f8f9fa);
+  border: 1px solid var(--ergo-panel-border, #dee2e6);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ergo-controls-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ergo-panel-border, #dee2e6);
+}
+
+.ergo-controls-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ergo-text-primary, #212529);
+}
+
+.ergo-control-group {
+  margin-bottom: 1.5rem;
+}
+
+.ergo-control-group:last-child {
+  margin-bottom: 0;
+}
+
+.ergo-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ergo-text-secondary, #495057);
+  margin-bottom: 0.5rem;
+}
+
+/* Checkbox Toggle */
+.ergo-control-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ergo-text-primary, #212529);
+}
+
+.ergo-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  accent-color: var(--ergo-accent, #2196f3);
+}
+
+/* Button Groups */
+.ergo-button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ergo-btn {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border: 2px solid var(--ergo-btn-border, #ced4da);
+  background: var(--ergo-btn-bg, #ffffff);
+  color: var(--ergo-text-primary, #212529);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ergo-btn:hover {
+  background: var(--ergo-btn-hover, #e9ecef);
+  border-color: var(--ergo-accent, #2196f3);
+}
+
+.ergo-btn.active {
+  background: var(--ergo-accent, #2196f3);
+  color: white;
+  border-color: var(--ergo-accent, #2196f3);
+}
+
+.ergo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ergo-btn-icon {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Slider */
+.ergo-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ergo-slider-bg, #dee2e6);
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--ergo-accent, #2196f3);
+}
+
+.ergo-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ergo-accent, #2196f3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ergo-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.ergo-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ergo-accent, #2196f3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ergo-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Theme Grid */
+.ergo-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.ergo-theme-btn {
+  padding: 0.75rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.ergo-theme-btn.active {
+  border-color: var(--ergo-accent, #2196f3);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.theme-light {
+  background: #ffffff;
+  color: #212529;
+  border-color: #dee2e6;
+}
+
+.theme-light:hover {
+  border-color: #adb5bd;
+}
+
+.theme-dark {
+  background: #1a1a1a;
+  color: #f8f9fa;
+  border-color: #343a40;
+}
+
+.theme-dark:hover {
+  border-color: #495057;
+}
+
+.theme-sepia {
+  background: #f4ecd8;
+  color: #5b4636;
+  border-color: #d4c4a8;
+}
+
+.theme-sepia:hover {
+  border-color: #b4a488;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ergo-read-manager {
+    padding: 1rem;
+  }
+
+  .ergo-controls-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .ergo-button-group {
+    flex-direction: column;
+  }
+
+  .ergo-theme-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ergo-btn,
+  .ergo-theme-btn {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}

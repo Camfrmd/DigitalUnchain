@@ -1,0 +1,271 @@
+/* CardGrid.css */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.card-grid-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.grid-title {
+  text-align: center;
+  color: #FFD700;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Card Wrapper Sizes */
+.card-wrapper {
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card-wrapper:hover {
+  transform: scale(1.02);
+}
+
+.card-wrapper.small {
+  grid-column: span 1;
+  min-height: 280px;
+}
+
+.card-wrapper.medium {
+  grid-column: span 1;
+  min-height: 350px;
+}
+
+.card-wrapper.large {
+  grid-column: span 2;
+  min-height: 320px;
+}
+
+/* Card Flip Animation */
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card.flipped {
+  transform: rotateX(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Front */
+.card-front {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid;
+}
+
+.card-front h2 {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a1a2e;
+  line-height: 1.3;
+}
+
+.card-icon {
+  font-size: 4rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Card Back */
+.card-back {
+  background: rgba(30, 30, 46, 0.95);
+  transform: rotateX(180deg);
+  overflow-y: auto;
+  border: 3px solid;
+}
+
+.card-back h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.text-container,
+.media-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bio-text {
+  text-align: center;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+/* Media Elements */
+audio,
+video {
+  width: 100%;
+  max-width: 100%;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+video {
+  max-height: 180px;
+  object-fit: cover;
+}
+
+/* Color Themes */
+.card-wrapper.yellow .card-front {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-color: #FFD700;
+}
+
+.card-wrapper.yellow .card-front h2 {
+  color: #1a1a2e;
+}
+
+.card-wrapper.yellow .card-back {
+  background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);
+  border-color: #FFD700;
+}
+
+.card-wrapper.yellow .card-back h3 {
+  color: #FFD700;
+}
+
+.card-wrapper.blue .card-front {
+  background: linear-gradient(135deg, #00CED1 0%, #1E90FF 100%);
+  border-color: #00CED1;
+}
+
+.card-wrapper.blue .card-front h2 {
+  color: #ffffff;
+}
+
+.card-wrapper.blue .card-back {
+  background: linear-gradient(135deg, #004E6B 0%, #003854 100%);
+  border-color: #00CED1;
+}
+
+.card-wrapper.blue .card-back h3 {
+  color: #00CED1;
+}
+
+.card-wrapper.red .card-front {
+  background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+  border-color: #FF6B6B;
+}
+
+.card-wrapper.red .card-front h2 {
+  color: #ffffff;
+}
+
+.card-wrapper.red .card-back {
+  background: linear-gradient(135deg, #8B0000 0%, #6B0000 100%);
+  border-color: #FF6B6B;
+}
+
+.card-wrapper.red .card-back h3 {
+  color: #FF6B6B;
+}
+
+.card-wrapper.pink .card-front {
+  background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);
+  border-color: #FFB6C1;
+}
+
+.card-wrapper.pink .card-front h2 {
+  color: #1a1a2e;
+}
+
+.card-wrapper.pink .card-back {
+  background: linear-gradient(135deg, #8B2252 0%, #6B1A3F 100%);
+  border-color: #FFB6C1;
+}
+
+.card-wrapper.pink .card-back h3 {
+  color: #FFB6C1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .grid-title {
+    font-size: 2rem;
+  }
+
+  .card-wrapper.large {
+    grid-column: span 1;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-front h2 {
+    font-size: 1.5rem;
+  }
+
+  .card-icon {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid-container {
+    padding: 20px 10px;
+  }
+
+  .grid-title {
+    font-size: 1.5rem;
+  }
+
+  .card-front,
+  .card-back {
+    padding: 20px;
+  }
+}
