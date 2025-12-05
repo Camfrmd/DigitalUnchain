@@ -20,8 +20,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ folderName, onClick }) => {
         setLoading(true);
 
         // Construct paths
-        const articlePath = `/src/ArticleList/articles/${folderName}/article.md`;
-        const imageSrc = `/src/ArticleList/articles/${folderName}/main.png`;
+        const articlePath = `/src/assets/articles/${folderName}/article.md`;
+        const imageSrc = `/src/assets/articles/${folderName}/main.png`;
 
         // Fetch the markdown file
         const response = await fetch(articlePath);

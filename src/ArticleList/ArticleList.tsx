@@ -3,7 +3,7 @@ import ArticleCard from './ArticleCard/ArticleCard';
 import ArticleReader from './ArticleReader/ArticleReader';
 import './ArticleList.css';
 
-const articleFolders = ['linux-switching']; // Add more folder names as you create articles
+const articleFolders = ['linux-switching','onlyoffice','reconditionnement']; // Add more folder names as you create articles
 
 const ArticleList: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<string | null>(null);
