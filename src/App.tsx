@@ -60,12 +60,7 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
     description:
       "Rendre le numérique plus accessible, compréhensible et rassurant pour toutes et tous, quel que soit le niveau de départ.",
     games: [
-      {
-        id: "motsMeles",
-        title: "Mots mêlés Inclusif",
-        description:
-          "Retrouve les mots liés à l’accessibilité, à l’accompagnement, aux difficultés numériques et aux bonnes pratiques pédagogiques.",
-      },
+
     ],
   },
   libres: {
@@ -73,24 +68,6 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
     description:
       "Comprendre les enjeux de responsabilité numérique : données, GAFAM, clouds, souveraineté et choix d’outils plus éthiques.",
     games: [
-      // {
-      //   id: "quiz",
-      //   title: "Rejouer le quiz (facultatif)",
-      //   description:
-      //     "Repasser le quiz pour voir si ton profil évolue après avoir exploré les différents mondes.",
-      // },
-      {
-        id: "motsMeles",
-        title: "Mots mêlés Responsable",
-        description:
-          "Repère les notions clés autour des données, du traçage, de la sobriété et des alternatives plus responsables.",
-      },
-      {
-        id: "pacman",
-        title: "Pac-Man alternatif",
-        description:
-          "Relis les plateformes mangées à des logiciels et services plus respectueux de tes données et de l’environnement.",
-      },
       {
         id: "pcGame",
         title: "Reconditionnement PC",
@@ -226,19 +203,18 @@ function App() {
         </section>
 
 
+    {currentWorld === "inclusif" && (
+      <section className="world-femmes">
+        <CardGrid />
+      </section>
+    )}
+
+
+
 
           {currentWorld === "articles" ? (
   <section className="world-articles">
 
-    {/* ---- SECTION 1 : Femmes pionnières ---- */}
-    <h3>Femmes pionnières du numérique</h3>
-    <p>
-      Découvrez les femmes qui ont marqué l’histoire du numérique.  
-      Cliquez sur une carte pour lire leur parcours !
-    </p>
-    <CardGrid />
-
-    <hr style={{ margin: "2rem 0", opacity: 0.4 }} />
 
     {/* ---- SECTION 2 : Articles classiques ---- */}
     <h3>Articles & ressources</h3>
