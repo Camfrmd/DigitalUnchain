@@ -137,6 +137,9 @@ export default function MotsMelesNumerique() {
   
   // Last found word for animation
   const [lastFoundWord, setLastFoundWord] = useState<string | null>(null);
+  
+  // Already found word message
+  const [alreadyFoundMessage, setAlreadyFoundMessage] = useState<string | null>(null);
 
   const total = WORDS.length;
   const foundCount = Object.values(foundWords).filter(Boolean).length;
@@ -167,6 +170,14 @@ export default function MotsMelesNumerique() {
     }
   }, [lastFoundWord]);
   
+  // Clear already found message after delay
+  useEffect(() => {
+    if (alreadyFoundMessage) {
+      const timer = setTimeout(() => setAlreadyFoundMessage(null), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [alreadyFoundMessage]);
+  
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -183,7 +194,36 @@ export default function MotsMelesNumerique() {
     setSelection((prev) => {
       const last = prev[prev.length - 1];
       if (last && last.row === row && last.col === col) return prev;
-      return [...prev, { row, col }];
+      
+      // If this is the first cell, just add it
+      if (prev.length === 0) return [{ row, col }];
+      
+      const first = prev[0];
+      
+      // If this is the second cell, determine the direction and add it
+      if (prev.length === 1) {
+        return [...prev, { row, col }];
+      }
+      
+      // For third cell and beyond, constrain to the established line
+      const second = prev[1];
+      const deltaRow = second.row - first.row;
+      const deltaCol = second.col - first.col;
+      
+      // Normalize direction to -1, 0, or 1
+      const dirRow = deltaRow === 0 ? 0 : deltaRow / Math.abs(deltaRow);
+      const dirCol = deltaCol === 0 ? 0 : deltaCol / Math.abs(deltaCol);
+      
+      // Check if the new cell is on the same line
+      const expectedRow = last.row + dirRow;
+      const expectedCol = last.col + dirCol;
+      
+      // Only add if it's the next cell in the established direction
+      if (row === expectedRow && col === expectedCol) {
+        return [...prev, { row, col }];
+      }
+      
+      return prev;
     });
   };
 
@@ -204,20 +244,25 @@ export default function MotsMelesNumerique() {
     );
 
     if (match) {
-      // Mark word as found
-      setFoundWords((prev) => ({ ...prev, [match.id]: true }));
+      // Check if word was already found
+      if (foundWords[match.id]) {
+        setAlreadyFoundMessage(match.label);
+      } else {
+        // Mark word as found
+        setFoundWords((prev) => ({ ...prev, [match.id]: true }));
 
-      // Highlight all cells in the selection
-      setFoundCells((prev) => {
-        const updated = { ...prev };
-        for (const p of selection) {
-          updated[posKey(p.row, p.col)] = true;
-        }
-        return updated;
-      });
-      
-      // Show success animation
-      setLastFoundWord(match.label);
+        // Highlight all cells in the selection
+        setFoundCells((prev) => {
+          const updated = { ...prev };
+          for (const p of selection) {
+            updated[posKey(p.row, p.col)] = true;
+          }
+          return updated;
+        });
+        
+        // Show success animation
+        setLastFoundWord(match.label);
+      }
     }
 
     setIsSelecting(false);
@@ -256,6 +301,11 @@ export default function MotsMelesNumerique() {
         {lastFoundWord && (
           <div className="mm-found-animation">
             ✨ {lastFoundWord} trouvé !
+          </div>
+        )}
+        {alreadyFoundMessage && (
+          <div className="mm-already-found-animation">
+            ⚠️ {alreadyFoundMessage} déjà trouvé !
           </div>
         )}
       </div>

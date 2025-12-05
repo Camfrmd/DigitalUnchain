@@ -171,6 +171,7 @@ export default function Pacman() {
   );
 
   const [pacman, setPacman] = useState<Pos>({ row: 1, col: 1 });
+  const [lastDirection, setLastDirection] = useState<Pos | null>(null);
   const [ghost, setGhost] = useState<Pos>({ row: 8, col: 13 });
   const [score, setScore] = useState(0);
   const [pelletsLeft, setPelletsLeft] = useState<number>(() =>
@@ -195,6 +196,7 @@ export default function Pacman() {
     setLevel(fresh.tiles);
     setSpecialCells(fresh.specials);
     setPacman({ row: 1, col: 1 });
+    setLastDirection(null);
     setGhost({ row: 8, col: 13 });
     setScore(0);
     setPelletsLeft(
@@ -222,6 +224,16 @@ export default function Pacman() {
       if (e.key === "ArrowLeft") dir = { row: 0, col: -1 };
       if (e.key === "ArrowRight") dir = { row: 0, col: 1 };
       if (!dir) return;
+
+      // Prevent default behavior to stop page scrolling
+      e.preventDefault();
+
+      // Check if trying to go back (opposite direction)
+      if (lastDirection) {
+        const isOpposite = 
+          (dir.row === -lastDirection.row && dir.col === -lastDirection.col);
+        if (isOpposite) return; // Don't allow going back
+      }
 
       let next: Pos = {
         row: pacman.row + dir.row,
@@ -260,6 +272,7 @@ export default function Pacman() {
 
       setLevel(newLevel);
       setPacman(next);
+      setLastDirection(dir); // Store the direction for next move
       setScore(newScore);
       setPelletsLeft(newPelletsLeft);
       setSpecialCells(newSpecialCells);
@@ -269,7 +282,7 @@ export default function Pacman() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [state, pacman, level, score, pelletsLeft, specialCells, eatenSpecials, lastEaten]);
+  }, [state, pacman, level, score, pelletsLeft, specialCells, eatenSpecials, lastEaten, lastDirection]);
 
   // Mouvement du fantôme
  useEffect(() => {

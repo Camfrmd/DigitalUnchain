@@ -110,7 +110,7 @@ const CardGrid: React.FC = () => {
           min-height: 100vh;
           background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
           padding: 40px 20px;
-          font-family: 'Arial', sans-serif;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
 
         .grid-title {
