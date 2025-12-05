@@ -677,7 +677,6 @@ body::after {
 
 .world-articles p {
   margin: 0.6rem 0;
-  font-size: 0.95rem;
   color: var(--nird-text-light);
   line-height: 1.7;
 }
