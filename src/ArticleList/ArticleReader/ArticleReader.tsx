@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import ErgoReadManager from './ErgoReadManager';
+import type { ReadingSettings } from './ErgoReadManager';
 import './ArticleReader.css';
 
 interface ArticleReaderProps {
@@ -13,6 +15,15 @@ const ArticleReader: React.FC<ArticleReaderProps> = ({ folderName }) => {
   const [imagePath, setImagePath] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
+  
+  // Reading settings state
+  const [readingSettings, setReadingSettings] = useState<ReadingSettings>({
+    readingMode: false,
+    fontFamily: 'sans-serif',
+    contentWidth: 100,
+    fontSize: 100,
+    theme: 'light',
+  });
 
   useEffect(() => {
     const loadArticle = async () => {
@@ -63,8 +74,27 @@ const ArticleReader: React.FC<ArticleReaderProps> = ({ folderName }) => {
     return <div className="article-reader error">Error: {error}</div>;
   }
 
+  // Calculate dynamic styles based on reading settings
+  // Base font size is 1.1rem, scale it with the fontSize setting
+  const baseFontSize = 1.1;
+  const scaledFontSize = (baseFontSize * readingSettings.fontSize) / 100;
+  
+  const contentStyle = {
+    maxWidth: readingSettings.readingMode ? `${readingSettings.contentWidth}%` : '900px',
+    fontSize: `${scaledFontSize}rem`,
+    fontFamily: readingSettings.fontFamily,
+  };
+
   return (
-    <article className="article-reader">
+    <article 
+      className={`article-reader theme-${readingSettings.theme}`}
+      data-reading-mode={readingSettings.readingMode}
+    >
+      <ErgoReadManager
+        settings={readingSettings}
+        onSettingsChange={setReadingSettings}
+      />
+      
       <div className="article-header">
         <img 
           src={imagePath} 
@@ -78,7 +108,7 @@ const ArticleReader: React.FC<ArticleReaderProps> = ({ folderName }) => {
         <h1 className="article-title">{title}</h1>
       </div>
       
-      <div className="article-content">
+      <div className="article-content" style={contentStyle}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {content}
         </ReactMarkdown>
