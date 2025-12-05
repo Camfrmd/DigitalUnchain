@@ -7,6 +7,8 @@ import Quiz from "./component/Quiz";
 import MotsMelesNumerique from "./MotMele/MotsMeles";
 import Pacman from "./pacman/pacman";
 import ArticleList from './ArticleList';
+import SnakeGame from "./snake/SnakeGame";
+import CardGrid from "./OngletArticle/CardGrid";
 
 type WorldKey = "numérique" | "inclusif" | "libres" | "durable" | "articles";
 type GameId = "quiz" | "motsMeles" | "pacman";
@@ -33,6 +35,8 @@ const WORLD_THEME_CLASS: Record<WorldKey, string> = {
 };
 
 
+
+
 const WORLDS: Record<WorldKey, WorldConfig> = {
   numérique: {
     label: "Monde Numérique",
@@ -40,18 +44,15 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
       "Mieux comprendre tes outils, sortir des réglages par défaut et gagner en autonomie (systèmes, logiciels, sauvegardes, alternatives libres).",
     games: [
       {
-        id: "quiz",
-        title: "Quiz profil numérique",
+        id: "motsMeles",
+        title: "Mots mêlés Responsable",
         description:
-          "Fais le point sur ta manière d’utiliser les outils numériques, les clouds et les logiciels imposés.",
-      },
-      {
-        id: "pacman",
-        title: "Pac-Man des plateformes",
-        description:
-          "Mange les « géants » du numérique renommés et découvre des services alternatifs plus libres et responsables.",
+          "Repère les notions clés autour des données, du traçage, de la sobriété et des alternatives plus responsables.",
       },
     ],
+    
+
+    
   },
   inclusif: {
     label: "Monde Inclusif",
@@ -71,12 +72,12 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
     description:
       "Comprendre les enjeux de responsabilité numérique : données, GAFAM, clouds, souveraineté et choix d’outils plus éthiques.",
     games: [
-      {
-        id: "quiz",
-        title: "Rejouer le quiz (facultatif)",
-        description:
-          "Repasser le quiz pour voir si ton profil évolue après avoir exploré les différents mondes.",
-      },
+      // {
+      //   id: "quiz",
+      //   title: "Rejouer le quiz (facultatif)",
+      //   description:
+      //     "Repasser le quiz pour voir si ton profil évolue après avoir exploré les différents mondes.",
+      // },
       {
         id: "motsMeles",
         title: "Mots mêlés Responsable",
@@ -97,12 +98,6 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
       "Penser sobriété numérique, réemploi, reconditionnement et prolongation de la durée de vie du matériel plutôt que le renouvellement systématique.",
     games: [
       {
-        id: "motsMeles",
-        title: "Mots mêlés Durable",
-        description:
-          "Repère les termes liés à l’obsolescence, au réemploi, au matériel, au stockage et aux usages plus sobres.",
-      },
-      {
         id: "pacman",
         title: "Pac-Man Sobriété",
         description:
@@ -111,7 +106,7 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
     ],
   },
   articles: {
-    label: "Onglet Articles",
+    label: "Articles",
     description:
       "Un espace pour lire, approfondir et relier les expériences de jeu à des contenus plus structurés (fiches, ressources, exemples).",
     games: [],
@@ -138,11 +133,26 @@ function renderGame(gameId: GameId) {
 }
 
 function App() {
+
+
+  const [secretInput, setSecretInput] = useState("");
+  const [snakeVisible, setSnakeVisible] = useState(false);
+
   // tant que c'est false, on affiche seulement le quiz en plein écran
   const [hasCompletedQuiz, setHasCompletedQuiz] = useState(false);
 
   const [currentWorld, setCurrentWorld] = useState<WorldKey>("numérique");
   const [activeGameId, setActiveGameId] = useState<GameId | null>(null);
+
+    const handleSecretInput = (value: string) => {
+    setSecretInput(value);
+    if (value.toUpperCase() === "DURABLE") {
+      setSnakeVisible(true);
+    } else {
+      setSnakeVisible(false);
+    }
+  };
+
 
   const world = WORLDS[currentWorld];
 
@@ -205,18 +215,31 @@ function App() {
           <p>{world.description}</p>
         </section>
 
-        {currentWorld === "articles" ? (
-          <section className="world-articles">
-            <h3>Contenus & articles</h3>
-            <p>
-              Ici, tu pourras retrouver des articles, fiches ou ressources qui
-              prolongent ce que tu as expérimenté dans les jeux des autres
-              mondes.
-            </p>
-            <ArticleList />
-            {/* <ArticleReader folderName="deployment" /> */}
-          </section>
-        ) : (
+
+
+          {currentWorld === "articles" ? (
+  <section className="world-articles">
+
+    {/* ---- SECTION 1 : Femmes pionnières ---- */}
+    <h3>Femmes pionnières du numérique</h3>
+    <p>
+      Découvrez les femmes qui ont marqué l’histoire du numérique.  
+      Cliquez sur une carte pour lire leur parcours !
+    </p>
+    <CardGrid />
+
+    <hr style={{ margin: "2rem 0", opacity: 0.4 }} />
+
+    {/* ---- SECTION 2 : Articles classiques ---- */}
+    <h3>Articles & ressources</h3>
+    <p>
+      Approfondis les thématiques abordées dans les différents mondes :
+      numérique, inclusif, responsable, durable.
+    </p>
+    <ArticleList />
+
+  </section>
+) : (
           <section className="world-games">
             <h3>Jeux de ce monde</h3>
             <div className="world-games-grid">
@@ -263,8 +286,58 @@ function App() {
             )}
           </section>
         )}
+
+
+
+
+
+        {/* Secret Word Input */}
+        {currentWorld !== "articles" && !snakeVisible && (
+          <section className="secret-input-section">
+            <div className="secret-input-header">
+              <h3>🔐 Jeu Secret</h3>
+              <p>Entre le mot secret pour déverrouiller un jeu caché...</p>
+              <p>Indice: Je ne cède ni à l'usure ni à l'instantané, je m'inscris au fil des ans ;</p>
+              <p>On me lie à une pratique qui préserve ressources et héritage humain,</p>
+              <p>Mon composé trahit mon sens : l'un parle du temps, l'autre qualifie.
+              Qui suis-je ?</p>
+            </div>
+            <input
+              type="text"
+              className="secret-input"
+              placeholder="Mot secret..."
+              value={secretInput}
+              onChange={(e) => handleSecretInput(e.target.value)}
+              maxLength={10}
+            />
+          </section>
+        )}
+
+
+
+
+
+        {/* Snake Game - Visible Only With Secret Word */}
+        {currentWorld !== "articles" && snakeVisible && (
+          <section className="snake-section">
+            <div className="secret-input-section">
+              <h3>🐍 Snake du Libre</h3>
+              <p>Guide le serpent avec les flèches ou ZQSD et mange le plus de pommes possible.</p>
+            </div>
+            <SnakeGame />
+          </section>
+        )}
+
+
+
+
       </main>
     </div>
+
+
+
+
+
   );
 }
 
