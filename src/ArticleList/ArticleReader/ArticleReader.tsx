@@ -34,8 +34,8 @@ const ArticleReader: React.FC<ArticleReaderProps> = ({ folderName }) => {
         // Construct paths
         // const articlePath = `/src/ArticleList/articles/${folderName}/article.md`;
         // const imageSrc = `/src/ArticleList/articles/${folderName}/main.png`;
-        const articlePath = `/src/assets/articles/${folderName}/article.md`;
-        const imageSrc = `/src/assets/articles/${folderName}/main.png`;
+        const articlePath = `/articles/${folderName}/article.md`;
+        const imageSrc = `/articles/${folderName}/main.png`;
         
         // Fetch the markdown file
         const response = await fetch(articlePath);
