@@ -9,7 +9,6 @@ interface PCImageProps {
 }
 
 const PCImage: FC<PCImageProps> = ({ onDrop, matches }) => {
-  const dropZoneSize = 30; // Taille des DropZones
 
   return (
     <div style={{ position: "relative", width: "1024px", height: "1024px" }}>
