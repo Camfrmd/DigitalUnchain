@@ -3,10 +3,7 @@ import ArticleCard from './ArticleCard/ArticleCard';
 import ArticleReader from './ArticleReader/ArticleReader';
 import './ArticleList.css';
 
-// Import article folders dynamically
-// For now, we'll use a static list. In a real app, you'd use import.meta.glob
-// or fetch a directory listing from the server
-const articleFolders = ['deployment']; // Add more folder names as you create articles
+const articleFolders = ['linux-switching']; // Add more folder names as you create articles
 
 const ArticleList: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<string | null>(null);
