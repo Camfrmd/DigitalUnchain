@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Importez vos fichiers média
-import videoFile from './VID_20251204_225643.mp4';
+import videoFile from '../assets/VID_20251204_225643.mp4';
 import podcastFile from './Katherine_Johnson_le_cerveau_plus_fiable_qu_IBM.m4a';
 
 // Importez toutes vos images
