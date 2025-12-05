@@ -1,5 +1,17 @@
-import videoFile from './VID_20251204_225643.mp4';
 import React, { useState } from 'react';
+
+// Importez vos fichiers média
+import videoFile from './VID_20251204_225643.mp4';
+import podcastFile from './Katherine_Johnson_le_cerveau_plus_fiable_qu_IBM.m4a';
+
+// Importez toutes vos images
+import wifiImg from './image/wifi.jpg';
+import soleilImg from './image/soleil.jpg';
+import medic3DImg from './image/3Dmedic.jpg';
+import quantiqueImg from './image/quantique.jpg';
+import cryptoImg from './image/crypto.jpg';
+import calculatriceImg from './image/calculatrice.jpg';
+import sansEllesImg from './image/sanselles.jpg';
 
 interface Card {
   id: number;
@@ -25,17 +37,19 @@ const CardGrid: React.FC = () => {
   const cards: Card[] = [
     {
       id: 1,
-      title: "Le wifi ça vient de qui?",
+      title: "Les pionnières du sans-fil",
       bio: "Hedy Lamarr, née Hedwig Kiesler en 1914 à Vienne, est d'abord devenue célèbre à Hollywood pour ses rôles dans les années 1930 et 1940. Derrière son image de star glamour, elle cultivait pourtant une curiosité scientifique étonnante. En 1941, pendant la Seconde Guerre mondiale, elle met au point avec le compositeur George Antheil un système de transmission radio basé sur le « saut de fréquence ». Ce brevet, ignoré à l'époque, est devenu par la suite l'un des fondements des technologies sans fil modernes.",
       size: "large",
-      color: "yellow"
+      color: "yellow",
+      image: wifiImg
     },
     {
       id: 2,
-      title: "Le soleil de la tech",
+      title: "L’innovation solaire au féminin",
       bio: "Maria Telkes, née en 1900 à Budapest, est une pionnière de l'énergie solaire. Elle se fait connaître pour ses recherches novatrices au MIT, où elle développe des systèmes de chauffage solaire. L'une de ses réalisations les plus célèbres est la \"Dover Sun House\", une maison expérimentale des années 1940 chauffée presque entièrement grâce à l'énergie solaire. Souvent surnommée \"la reine du soleil\", elle est aujourd'hui reconnue comme l'une des grandes figures de l'innovation énergétique du XXᵉ siècle.",
       size: "medium",
-      color: "blue"
+      color: "blue",
+      image: soleilImg
     },
     {
       id: 4,
@@ -44,38 +58,42 @@ const CardGrid: React.FC = () => {
       size: "medium",
       color: "red",
       media: "video",
-      mediaSource: videoFile
-
+      mediaSource: videoFile,
+      image: sansEllesImg
     },
     {
       id: 5,
-      title: "BioMedical 3D",
+      title: "Impression 3D au service de la santé",
       bio: "Nneile Nkholise est une entrepreneure sud-africaine et ingénieure passionnée par l'innovation au service des gens et de l'environnement. En 2015, elle fonde iMed Tech, une entreprise qui conçoit des prothèses médicales grâce à l'impression 3D. Elle crée ensuite 3DIMO, qui développe des solutions technologiques pour le suivi des animaux et l'agriculture. Reconnue pour ses réalisations, elle a reçu plusieurs prix dont le titre de \"meilleure femme innovatrice d'Afrique\".",
       size: "small",
-      color: "blue"
+      color: "blue",
+      image: medic3DImg
     },
     {
       id: 6,
-      title: "Quantique",
+      title: "À la découverte de l’informatique quantique",
       bio: "Michelle Simmons, née en 1967 à Londres, est une physicienne et chercheuse australienne de renommée mondiale dans le domaine de l'informatique quantique. Elle est connue pour avoir créé le premier transistor constitué d'un seul atome, une avancée majeure vers les ordinateurs quantiques. Son travail lui a valu de nombreuses distinctions, dont le titre de \"Australian of the Year\" en 2018.",
       size: "large",
-      color: "red"
+      color: "red",
+      image: quantiqueImg
     },
     {
       id: 7,
-      title: "La calculatrice humaine",
-      bio: "Écoutez ce podcast fascinant sur Katherine et découvrez son histoire inspirante.",
+      title: "La mathématicienne qui change l’histoire",
+      bio: "Écoutez ce podcast fascinant sur Katherine Johnson et découvrez son histoire inspirante.",
       size: "medium",
       color: "pink",
       media: "audio",
-      mediaSource: "/src/OngletArticle/Katherine_Johnson_le_cerveau_plus_fiable_qu_IBM.m4a"
+      mediaSource: podcastFile,
+      image: calculatriceImg
     },
     {
       id: 8,
-      title: "Cryptologue",
+      title: "Secrets et codes : la cryptologie moderne",
       bio: "Wang Xiaoyun, née en 1966 dans la province du Shandong en Chine, est une mathématicienne et cryptologue de renommée internationale. Elle est surtout connue pour avoir démontré que des algorithmes considérés sûrs, comme MD5 et SHA‑1, pouvaient être vulnérables, un travail qui a poussé le monde entier à revoir les standards de la cryptographie. Membre de l'Académie chinoise des sciences et lauréate du Future Science Prize.",
       size: "small",
-      color: "yellow"
+      color: "yellow",
+      image: cryptoImg
     }
   ];
 
@@ -182,6 +200,21 @@ const CardGrid: React.FC = () => {
         .card-icon {
           font-size: 4rem;
           animation: float 3s ease-in-out infinite;
+        }
+
+        .card-image {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          margin-top: 10px;
+        }
+
+        .card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
         @keyframes float {
@@ -328,6 +361,11 @@ const CardGrid: React.FC = () => {
           .card-icon {
             font-size: 3rem;
           }
+
+          .card-image {
+            width: 120px;
+            height: 120px;
+          }
         }
 
         @media (max-width: 480px) {
@@ -343,54 +381,65 @@ const CardGrid: React.FC = () => {
           .card-back {
             padding: 20px;
           }
+
+          .card-image {
+            width: 100px;
+            height: 100px;
+          }
         }
       `}</style>
 
       <div className="card-grid-container">
-      <h1 className="grid-title">Femmes Pionnières du Numérique</h1>
-      <div className="card-grid">
-        {cards.map(card => (
-          <div
-            key={card.id}
-            className={`card-wrapper ${card.size} ${card.color}`}
-            onClick={() => toggleCard(card.id)}
-          >
-            <div className={`card ${flippedCards[card.id] ? 'flipped' : ''}`}>
-              <div className="card-front">
-                <h2>{card.title}</h2>
-                <div className="card-icon">👩‍💻</div>
-              </div>
-              <div className="card-back">
-                {card.media === 'audio' ? (
-                  <div className="media-container">
-                    <h3>{card.title}</h3>
-                    <audio controls onClick={(e) => e.stopPropagation()}>
-                      <source src={card.mediaSource} type="audio/mp4" />
-                      Votre navigateur ne supporte pas l'élément audio.
-                    </audio>
-                    <p className="bio-text">{card.bio}</p>
-                  </div>
-                ) : card.media === 'video' ? (
-                        <div className="media-container">
-                            <h3>{card.title}</h3>
-                            <video controls onClick={(e) => e.stopPropagation()}>
-                                <source src={card.mediaSource} type="video/mp4" />
-                                Votre navigateur ne supporte pas l'élément vidéo.
-                                </video>
-                            <p className="bio-text">{card.bio}</p>
-                        </div>
-                                        ) : (
-                  <div className="text-container">
-                    <h3>{card.title}</h3>
-                    <p className="bio-text">{card.bio}</p>
-                  </div>
-                )}
+        <h1 className="grid-title">Femmes Pionnières du Numérique</h1>
+        <div className="card-grid">
+          {cards.map(card => (
+            <div
+              key={card.id}
+              className={`card-wrapper ${card.size} ${card.color}`}
+              onClick={() => toggleCard(card.id)}
+            >
+              <div className={`card ${flippedCards[card.id] ? 'flipped' : ''}`}>
+                <div className="card-front">
+                  <h2>{card.title}</h2>
+                  {card.image ? (
+                    <div className="card-image">
+                      <img src={card.image} alt={card.title} />
+                    </div>
+                  ) : (
+                    <div className="card-icon">👩‍💻</div>
+                  )}
+                </div>
+                <div className="card-back">
+                  {card.media === 'audio' ? (
+                    <div className="media-container">
+                      <h3>{card.title}</h3>
+                      <audio controls onClick={(e) => e.stopPropagation()}>
+                        <source src={card.mediaSource} type="audio/mp4" />
+                        Votre navigateur ne supporte pas l'élément audio.
+                      </audio>
+                      <p className="bio-text">{card.bio}</p>
+                    </div>
+                  ) : card.media === 'video' ? (
+                    <div className="media-container">
+                      <h3>{card.title}</h3>
+                      <video controls onClick={(e) => e.stopPropagation()}>
+                        <source src={card.mediaSource} type="video/mp4" />
+                        Votre navigateur ne supporte pas l'élément vidéo.
+                      </video>
+                      <p className="bio-text">{card.bio}</p>
+                    </div>
+                  ) : (
+                    <div className="text-container">
+                      <h3>{card.title}</h3>
+                      <p className="bio-text">{card.bio}</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 };

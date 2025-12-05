@@ -20,13 +20,13 @@
 
 // export default App
 
-
 import { useState } from "react";
 import "./App.css";
 
 import Quiz from "./component/Quiz";
 import MotsMelesNumerique from "./MotMele/MotsMeles";
 import Pacman from "./pacman/pacman";
+import CardGrid from "./OngletArticle/CardGrid";
 
 type WorldKey = "linux" | "reconditionnement" | "libres" | "articles";
 type GameId = "quiz" | "motsMeles" | "pacman";
@@ -172,10 +172,10 @@ function App() {
           <section className="world-articles">
             <h3>Contenus & articles</h3>
             <p>
-              Ici, tu pourras retrouver des articles, fiches ou ressources qui
-              prolongent ce que tu as expérimenté dans les jeux des autres
-              mondes.
+              Découvrez les femmes pionnières du numérique qui ont révolutionné 
+              notre monde technologique. Cliquez sur chaque carte pour en savoir plus !
             </p>
+            <CardGrid />
           </section>
         ) : (
           <section className="world-games">
