@@ -242,6 +242,8 @@ import "./App.css";
 import Quiz from "./component/Quiz";
 import MotsMelesNumerique from "./MotMele/MotsMeles";
 import Pacman from "./pacman/pacman";
+import ArticleReader from './ArticleList/ArticleReader/ArticleReader';
+import ArticleList from './ArticleList';
 
 type WorldKey = "numérique" | "inclusif" | "libres" | "durable" | "articles";
 type GameId = "quiz" | "motsMeles" | "pacman";
@@ -438,6 +440,8 @@ function App() {
               prolongent ce que tu as expérimenté dans les jeux des autres
               mondes.
             </p>
+            <ArticleList />
+            {/* <ArticleReader folderName="deployment" /> */}
           </section>
         ) : (
           <section className="world-games">
