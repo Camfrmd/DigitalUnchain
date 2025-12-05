@@ -20,7 +20,7 @@ const DropZone: FC<DropZoneProps> = ({ id, onDrop, x, y, isMatched }) => {
 
   // Styles pour le point de repère
   const size = 30; // Taille du cercle de la zone de chute
-  const color = isMatched ? "lime" : isOver ? "yellow" : "rgba(255, 255, 255, 0.4)";
+  const color = isMatched ? "lime" : isOver ? "yellow" : "rgba(241, 226, 226, 1)";
 
   return (
     <div

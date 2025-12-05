@@ -9,9 +9,10 @@ import Pacman from "./pacman/pacman";
 import ArticleList from './ArticleList';
 import SnakeGame from "./snake/SnakeGame";
 import CardGrid from "./OngletArticle/CardGrid";
+import PCGame from "./PCGame/PCGame";
 
 type WorldKey = "numérique" | "inclusif" | "libres" | "durable" | "articles";
-type GameId = "quiz" | "motsMeles" | "pacman";
+type GameId = "quiz" | "motsMeles" | "pacman" | "pcGame";
 
 type WorldGame = {
   id: GameId;
@@ -90,6 +91,12 @@ const WORLDS: Record<WorldKey, WorldConfig> = {
         description:
           "Relis les plateformes mangées à des logiciels et services plus respectueux de tes données et de l’environnement.",
       },
+      {
+        id: "pcGame",
+        title: "Reconditionnement PC",
+        description:
+        "Associe les composants de l’ordinateur à leur place correcte pour comprendre le réemploi et le reconditionnement.",
+      },
     ],
   },
   durable: {
@@ -117,6 +124,7 @@ const GAME_LABELS: Record<GameId, string> = {
   quiz: "Quiz",
   motsMeles: "Mots mêlés",
   pacman: "Pac-Man",
+  pcGame: "PCGame",
 };
 
 function renderGame(gameId: GameId) {
@@ -127,6 +135,8 @@ function renderGame(gameId: GameId) {
       return <MotsMelesNumerique />;
     case "pacman":
       return <Pacman />;
+    case "pcGame":
+      return <PCGame />;
     default:
       return null;
   }

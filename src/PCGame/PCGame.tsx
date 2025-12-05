@@ -31,7 +31,7 @@ const PCGame = () => {
         {/* Étiquettes à gauche : Seulement celles qui n'ont pas encore été correctement placées */}
         <div>
           <h3>Étiquettes à placer :</h3>
-          <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "200px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "200px", color: "white" }}>
             {draggableComponents.map((c) => (
               <DragItem key={c.id} id={c.id} label={c.label} />
             ))}
@@ -42,7 +42,7 @@ const PCGame = () => {
         <PCImage onDrop={handleDrop} matches={matches} />
 
         {/* Feedback */}
-        <div>
+        <div style={{ color: "white" }}>
           <h3>Résultats :</h3>
           {components.map((c) => (
             <div key={c.id}>
