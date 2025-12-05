@@ -9,6 +9,7 @@ interface Card {
   color: 'yellow' | 'blue' | 'red' | 'pink';
   media?: 'audio' | 'video';
   mediaSource?: string;
+  image?: string;
 }
 
 const CardGrid: React.FC = () => {
@@ -24,24 +25,17 @@ const CardGrid: React.FC = () => {
   const cards: Card[] = [
     {
       id: 1,
-      title: "HEDY LAMARR",
+      title: "Le wifi ça vient de qui?",
       bio: "Hedy Lamarr, née Hedwig Kiesler en 1914 à Vienne, est d'abord devenue célèbre à Hollywood pour ses rôles dans les années 1930 et 1940. Derrière son image de star glamour, elle cultivait pourtant une curiosité scientifique étonnante. En 1941, pendant la Seconde Guerre mondiale, elle met au point avec le compositeur George Antheil un système de transmission radio basé sur le « saut de fréquence ». Ce brevet, ignoré à l'époque, est devenu par la suite l'un des fondements des technologies sans fil modernes.",
       size: "large",
       color: "yellow"
     },
     {
       id: 2,
-      title: "MARIA TELKES",
+      title: "Le soleil de la tech",
       bio: "Maria Telkes, née en 1900 à Budapest, est une pionnière de l'énergie solaire. Elle se fait connaître pour ses recherches novatrices au MIT, où elle développe des systèmes de chauffage solaire. L'une de ses réalisations les plus célèbres est la \"Dover Sun House\", une maison expérimentale des années 1940 chauffée presque entièrement grâce à l'énergie solaire. Souvent surnommée \"la reine du soleil\", elle est aujourd'hui reconnue comme l'une des grandes figures de l'innovation énergétique du XXᵉ siècle.",
       size: "medium",
       color: "blue"
-    },
-    {
-      id: 3,
-      title: "ANNA LIVIA",
-      bio: "Anna Livia, née en 1955 à Göteborg en Suède, était une autrice, universitaire et militante engagée dans les études de genre et la littérature lesbienne. Elle écrit aussi bien des romans que des essais, dans lesquels elle explore le langage, l'identité et la représentation des communautés LGBTQ+. Son œuvre, à la fois intellectuelle et profondément humaine, a joué un rôle important dans la visibilité culturelle des femmes lesbiennes à la fin du XXᵉ siècle.",
-      size: "small",
-      color: "pink"
     },
     {
       id: 4,
@@ -55,21 +49,21 @@ const CardGrid: React.FC = () => {
     },
     {
       id: 5,
-      title: "NNEILE NKHOLISE",
+      title: "BioMedical 3D",
       bio: "Nneile Nkholise est une entrepreneure sud-africaine et ingénieure passionnée par l'innovation au service des gens et de l'environnement. En 2015, elle fonde iMed Tech, une entreprise qui conçoit des prothèses médicales grâce à l'impression 3D. Elle crée ensuite 3DIMO, qui développe des solutions technologiques pour le suivi des animaux et l'agriculture. Reconnue pour ses réalisations, elle a reçu plusieurs prix dont le titre de \"meilleure femme innovatrice d'Afrique\".",
       size: "small",
       color: "blue"
     },
     {
       id: 6,
-      title: "MICHELLE SIMMONS",
+      title: "Quantique",
       bio: "Michelle Simmons, née en 1967 à Londres, est une physicienne et chercheuse australienne de renommée mondiale dans le domaine de l'informatique quantique. Elle est connue pour avoir créé le premier transistor constitué d'un seul atome, une avancée majeure vers les ordinateurs quantiques. Son travail lui a valu de nombreuses distinctions, dont le titre de \"Australian of the Year\" en 2018.",
       size: "large",
       color: "red"
     },
     {
       id: 7,
-      title: "KATHERINE",
+      title: "La calculatrice humaine",
       bio: "Écoutez ce podcast fascinant sur Katherine et découvrez son histoire inspirante.",
       size: "medium",
       color: "pink",
@@ -78,7 +72,7 @@ const CardGrid: React.FC = () => {
     },
     {
       id: 8,
-      title: "WANG XIAOYUN",
+      title: "Cryptologue",
       bio: "Wang Xiaoyun, née en 1966 dans la province du Shandong en Chine, est une mathématicienne et cryptologue de renommée internationale. Elle est surtout connue pour avoir démontré que des algorithmes considérés sûrs, comme MD5 et SHA‑1, pouvaient être vulnérables, un travail qui a poussé le monde entier à revoir les standards de la cryptographie. Membre de l'Académie chinoise des sciences et lauréate du Future Science Prize.",
       size: "small",
       color: "yellow"
