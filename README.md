@@ -16,7 +16,7 @@ Le site est déployé à l'adresse suivante: [https://digital-unchain.vercel.app
 
 ```bash
 # Cloner le dépôt
-git clone [url-du-dépôt]
+git clone git@github.com:Camfrmd/DigitalUnchain.git
 
 # Naviguer vers le répertoire du projet
 cd DigitalUnchain
